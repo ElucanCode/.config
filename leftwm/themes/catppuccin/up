@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+export SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+
+#down the last running theme
+if [ -f "/tmp/leftwm-theme-down" ]; then
+    /tmp/leftwm-theme-down
+    rm /tmp/leftwm-theme-down
+fi
+ln -s $SCRIPTPATH/down /tmp/leftwm-theme-down
+
+#set the theme.toml config
+leftwm-command "LoadTheme $SCRIPTPATH/theme.toml"
+
+# TODO: Add other autostarted scripts/programs
+declare -A autostart_map
+autostart_map["feh"]="--bg-scale --no-fehbg $SCRIPTPATH/background.png"
+autostart_map["numlockx"]="on"
+autostart_map["picom"]="-b"
+
+for cmd in "${!autostart_map[@]}"; do
+    if [ -x "$(command -v ${cmd})" ]; then
+        $cmd ${autostart_map[$cmd]}
+    fi
+done
+
+index=0
+monitors="$(polybar -m | sed s/:.*//)"
+leftwm-state -q -n -t $SCRIPTPATH/exec/sizes.liquid | sed -r '/^\s*$/d' | while read -r width x y
+do
+  let indextemp=index+1
+  monitor=$(sed "$indextemp!d" <<<"$monitors")
+  barname="mainbar$index"
+  monitor=$monitor offset=$x width=$width polybar -c $SCRIPTPATH/config.ini $barname &> /dev/null &
+  let index=indextemp
+done
+

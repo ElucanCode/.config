@@ -1,0 +1,16 @@
+{% case workspace.layout  %}
+{% when 'MainAndVertStack' %}
+[]=
+{% when 'GridHorizontal' %}
+###
+{% when 'CenterMainBalanced' %}
+|M|
+{% when 'Monocle' %}
+[M]
+{% when 'Fibonacci' %}
+FIB
+{% when 'LeftMain' %}
+M|=
+{% when 'CenterMain' %}
+|M=
+{% endcase %}

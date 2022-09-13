@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+
+# processes to kill
+to_kill=("picom" "polybar")
+
+for cmd in "${to_kill[@]}"; do
+    if [ -x "$(command -v ${cmd})" ]; then
+        pkill $cmd
+    fi
+done
+
+# commands to run
+declare -A exec_map
+exec_map["feh"]="--bg-scale --no-fehbg $SCRIPTPATH/down.jpg"
+
+for cmd in "${!exec_map[@]}"; do
+    if [ -x "$(command -v ${cmd})" ]; then
+        $cmd ${exec_map[$cmd]}
+    fi
+done
+
+leftwm-command "UnloadTheme"

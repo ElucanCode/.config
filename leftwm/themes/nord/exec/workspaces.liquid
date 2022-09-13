@@ -1,0 +1,30 @@
+{% comment %} 
+    See: https://github.com/polybar/polybar/wiki/Formatting
+    Set foreground: %{F#...} text %{F-}
+    Set Background: %{B#...} text %{B-}
+    Set Underline:  %{u#...}%{+u} text %{-u}
+    Set Overline:   %{o#...}%{+o} text %{-o}
+    Set Font:       %{T...} text %{T-}
+
+    For tag options see: https://github.com/leftwm/leftwm/wiki/Customizing-Themes-with-%60liquid%60-templates
+{% endcomment %}
+
+%{T2}
+{% for tag in workspace.tags %}
+%{A1:$SCRIPTPATH/exec/change_to_tag {{workspace.index}} {{tag.index}}:}
+
+{% if tag.mine %}
+%{F#88C0D0}%{u#88C0D0}%{+u} {{tag.name}}
+{% elsif tag.visible %}
+%{F#81A1C1}%{u#81A1C1}%{+u} {{tag.name}}
+{% else %}
+%{F#B48EAD} {{tag.name}}
+{% endif %}
+
+{% if tag.busy %}
+·%{-u}
+{% endif %}
+
+%{F-}%{A}
+{% endfor %}
+%{T-}
