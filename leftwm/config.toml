@@ -29,11 +29,11 @@ keybind = [
     # System
     { command = "SoftReload",                      modifier = ["modkey", "Shift"], key = "r" },
     { command = "Execute", value = "pkill leftwm", modifier = ["modkey", "Shift", "Control"], key = "q" },
-    { command = "Execute", value = "~/.bin/volumectl inc",          modifier = [], key = "XF86XK_AudioRaiseVolume" },
-    { command = "Execute", value = "~/.bin/volumectl dec",          modifier = [], key = "XF86XK_AudioLowerVolume" },
-    { command = "Execute", value = "~/.bin/volumectl toggle",       modifier = [], key = "XF86XK_AudioMute" },
-    { command = "Execute", value = "notify-send 'brightness up'",   modifier = [], key = "XF86XK_MonBrightnessUp" },
-    { command = "Execute", value = "notify-send 'brightness down'", modifier = [], key = "XF86XK_MonBrightnessDown" },
+    { command = "Execute", value = "~/.bin/volumectl inc",    modifier = [], key = "XF86XK_AudioRaiseVolume" },
+    { command = "Execute", value = "~/.bin/volumectl dec",    modifier = [], key = "XF86XK_AudioLowerVolume" },
+    { command = "Execute", value = "~/.bin/volumectl toggle", modifier = [], key = "XF86XK_AudioMute" },
+    { command = "Execute", value = "backlight_control +5%",   modifier = [], key = "XF86XK_MonBrightnessUp" },
+    { command = "Execute", value = "backlight_control -5%",   modifier = [], key = "XF86XK_MonBrightnessDown" },
     # Windows
     { command = "Execute",         value = "alacritty",         modifier = ["modkey"],            key = "Return" },
     { command = "Execute",         value = "rofi -show drun",   modifier = ["modkey", "Shift"],   key = "d" },
