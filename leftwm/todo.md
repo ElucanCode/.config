@@ -1,18 +1,15 @@
-__Anderes Farb Thema?__
-
 ## TODOS
--[-] LeftWm selbst (open: 3)
+-[-] LeftWm (open: 3)
 -[ ] Polybar
-    -[ ] finales themeing
+    -[ ] final setup
     -[ ] Layouts
-    -[x] aktuelles Programm / aktueller Programmname
-    -[x] ~einige specs wie CPU, RAM, ...~
-    -[x] Systemtray
+    -[x] current program / programname
+    -[x] systemtray
 -[x] dunst
 -[ ] ranger
 -[ ] rofi
     -[ ] themeing
-    -[ ] andere Menus wie Power, Audio, Wlan, ...
+    -[ ] other Menus likt Power, Audio, Wifi, ...
         -[ ] Power-Menu
         -[ ] Wlan
 -[] Screenlocker
@@ -21,4 +18,4 @@ __Anderes Farb Thema?__
 _Alternativ_
 -[x] Firefox Theme
 -[] Discord Theme
--[] logseq (Obsidian Alternative)
+-[] logseq (Obsidian alternative)
