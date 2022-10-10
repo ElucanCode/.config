@@ -135,11 +135,12 @@ return require('packer').startup(function()
         'hrsh7th/vim-vsnip',
         after = 'nvim-cmp',
     }
-    
+
+    -- outline
+    use {
+        'simrat39/symbols-outline.nvim',
+        config = "require('config.symbols-outline')"
+    }
 
 end)
-
-
-
-
 
