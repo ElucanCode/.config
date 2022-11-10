@@ -2,7 +2,7 @@
 -[-] LeftWm (open: 3)
 -[ ] Polybar
     -[ ] final setup
-    -[ ] Layouts
+    -[x] Layouts
     -[x] current program / programname
     -[x] systemtray
 -[x] dunst
