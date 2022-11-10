@@ -5,7 +5,7 @@ vim.g.mapleader = ";"
 -- - lhs  = keycombination
 -- - rhs  = command or keycombination to execute
 -- - opts = optional options
-local function map(mode, lhs, rhs, opts)
+function map(mode, lhs, rhs, opts)
     local options = { noremap = true }
     if opts then
         options = vim.tbl_extend("force", options, opts)
@@ -37,5 +37,10 @@ map("n", "<leader><CR>", ":noh<CR>")
 -- jump to function definition
 map("n", "<leader>gd", "g]")
 
--- opten code outline
+-- open code outline
 map("n", "<leader>o", ":SymbolsOutline<CR>")
+
+map("n", "<leader>t", ":NvimTreeToggle<CR>")
+map("n", "<leader>f", ":Telescope grep_string<CR>")
+map("n", "<leader>F", ":Telescope find_files<CR>")
+map("n", "<leader>T", ":Telescope<CR>")
