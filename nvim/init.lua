@@ -24,4 +24,5 @@ vim.opt.smartcase = true        -- Deactivate ignorecase when the query has an u
 vim.opt.gdefault = true         -- `g` does not need to be specified in substitutions
 
 require('plugins')
-require('keymaps')
+local util = require('util')
+require('keymaps')(util)

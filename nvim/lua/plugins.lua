@@ -5,10 +5,6 @@ return require('packer').startup(function()
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-    -- Monokai colorscheme
-    use 'tanvirtin/monokai.nvim'
-    -- Nord colorscheme
-    use 'arcticicestudio/nord-vim'
     -- catppuchin colorscheme
     use { "catppuccin/nvim", as = "catppuccin" }
     require('config.colorscheme_cfg')
@@ -93,8 +89,6 @@ return require('packer').startup(function()
         'neovim/nvim-lspconfig',
         config = "require('config.lspconfig_cfg')",
     }
-    -- Extensions (like inlay hints and diagnostics)
-    use 'nvim-lua/lsp_extensions.nvim'
     -- download and manage lsp server
     use {
         'williamboman/nvim-lsp-installer',
@@ -110,7 +104,7 @@ return require('packer').startup(function()
     -- completion core
     use {
         'hrsh7th/nvim-cmp',
-        config = "require('config.nvimcmp_cfg')",
+        -- config = "require('config.nvimcmp_cfg')",
     }
     -- completion source for system path
     use {
@@ -143,9 +137,4 @@ return require('packer').startup(function()
         'simrat39/symbols-outline.nvim',
         config = "require('config.symbols-outline_cfg')",
     }
-    use {
-        'cdelledonne/vim-cmake',
-        config = "require('config.vim-cmake_cfg')",
-    }
-
 end)
