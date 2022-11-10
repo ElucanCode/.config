@@ -6,8 +6,15 @@ return require('packer').startup(function()
     use 'wbthomason/packer.nvim'
 
     -- catppuchin colorscheme
-    use { "catppuccin/nvim", as = "catppuccin" }
-    require('config.colorscheme_cfg')
+    use {
+        "catppuccin/nvim",
+        as = "catppuccin",
+        config = function ()
+            vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
+            require("catppuccin").setup()
+            vim.cmd [[colorscheme catppuccin]]
+        end,
+    }
 
     -- Better language parser
     use {
@@ -33,19 +40,43 @@ return require('packer').startup(function()
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-        config = "require('config.lualine_cfg')"
+        config = function ()
+            require('lualine').setup({
+                options = {
+                    section_separators = '',
+                component_separators = '',
+                theme = 'auto',
+                },
+                extensions = {
+                'nvim-tree',
+               }
+            })
+        end,
     }
     
     -- Git decorations
     use {
         'lewis6991/gitsigns.nvim',
-        config = "require('config.gitsigns_cfg')",
+        config = function ()
+            require('gitsigns').setup {
+                signs = {
+                    add = { text = "+" },
+                    change = { text = "~" },
+                }
+            }
+        end,
     }
 
     -- Automatic window resizing
     use {
         'beauwilliams/focus.nvim',
-        config = "require('config.focus_cfg')",
+        config = function ()
+            require('focus').setup({
+                enable = true,
+                autoresize = true,
+                treewidth = 30,
+            })
+        end,
     }
 
     -- auto close braces, ...
@@ -135,6 +166,11 @@ return require('packer').startup(function()
     -- code outline
     use {
         'simrat39/symbols-outline.nvim',
-        config = "require('config.symbols-outline_cfg')",
+        config = function ()
+            require("symbols-outline").setup({
+                auto_close = true,
+                show_numbers = true,
+            })
+        end,
     }
 end)

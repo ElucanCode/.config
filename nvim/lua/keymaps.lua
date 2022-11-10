@@ -38,6 +38,9 @@ map("n", "<c-t>", ":NvimTreeToggle<CR>")
 map("n", "<c-f>", ":Telescope live_grep<CR>")
 map("n", "<c-g>", ":Telescope find_files<CR>")
 
+-- IconPicker
+map("n", "<leader>i", ":IconPickerInsert<CR>")
+
 local function setup_specific(util)
     local lang = util.get_lang()
     -- For language server specifics see config/lspconfig_cfg.lua
