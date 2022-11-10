@@ -25,4 +25,3 @@ vim.opt.gdefault = true         -- `g` does not need to be specified in substitu
 
 require('plugins')
 require('keymaps')
-require('loadconfigs')

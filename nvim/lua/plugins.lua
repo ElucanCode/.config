@@ -7,17 +7,17 @@ return require('packer').startup(function()
 
     -- Monokai colorscheme
     use 'tanvirtin/monokai.nvim'
-
     -- Nord colorscheme
     use 'arcticicestudio/nord-vim'
-
     -- catppuchin colorscheme
     use { "catppuccin/nvim", as = "catppuccin" }
+    require('config.colorscheme_cfg')
 
     -- Better language parser
     use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
+        config = "require('config.treesitter_cfg')"
     }
 
     -- Better finder
@@ -30,12 +30,14 @@ return require('packer').startup(function()
     use {
         'kyazdani42/nvim-tree.lua',
         requires = { 'kyazdani42/nvim-web-devicons', }, -- for file icons
+        config = "require('config.nvimtree_cfg')"
     }
 
     -- Statusbar
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+        config = "require('config.lualine_cfg')"
     }
     
     -- Git decorations
@@ -135,11 +137,14 @@ return require('packer').startup(function()
         'hrsh7th/vim-vsnip',
         after = 'nvim-cmp',
     }
-    
+    -- code outline
+    use {
+        'simrat39/symbols-outline.nvim',
+        config = "require('config.symbols-outline_cfg')",
+    }
+    use {
+        'cdelledonne/vim-cmake',
+        config = "require('config.vim-cmake_cfg')",
+    }
 
 end)
-
-
-
-
-
