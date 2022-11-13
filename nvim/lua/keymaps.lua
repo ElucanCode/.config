@@ -2,8 +2,8 @@ vim.g.mapleader = "ö"
 
 -- arguments:
 -- - mode = editor mode (i=insert, n=normal)
--- - lhs  = keycombination
--- - rhs  = command or keycombination to execute
+-- - lhs  = key combination
+-- - rhs  = command or key combination to execute
 -- - opts = optional options
 local function map(mode, lhs, rhs, opts)
     local options = { noremap = true }
@@ -13,33 +13,40 @@ local function map(mode, lhs, rhs, opts)
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
+local function nmap(lhs, rhs, opts)
+    map("n", lhs, rhs, opts)
+end
+local function vmap(lhs, rhs, opts)
+    map("v", lhs, rhs, opts)
+end
+
 -- nvim-tree
-map("n", "<leader>t", ":NvimTreeToggle<CR>")
-map("n", "<leader>T", ":NvimTreeRefresh<CR>")
+nmap("<leader>t", ":NvimTreeToggle<CR>")
+nmap("<leader>T", ":NvimTreeRefresh<CR>")
 
 -- switch focus
-map("n", "<c-j>", "<c-w>j")
-map("n", "<c-h>", "<c-w>h")
-map("n", "<c-k>", "<c-w>k")
-map("n", "<c-l>", "<c-w>l")
+nmap("<c-j>", "<c-w>j")
+nmap("<c-h>", "<c-w>h")
+nmap("<c-k>", "<c-w>k")
+nmap("<c-l>", "<c-w>l")
 
 -- copy out of nvim
-map("v", "<leader>Y", "\"+y")
-map("n", "<leader>Y", "\"+yy")
+vmap("<leader>Y", "\"+y")
+nmap("<leader>Y", "\"+yy")
 
 -- unhighlight search results
-map("n", "<leader><space>", ":noh<CR>")
+nmap("<leader><space>", ":noh<CR>")
 
 -- open code outline
-map("n", "<leader>o", ":SymbolsOutline<CR>")
+nmap("<leader>o", ":SymbolsOutline<CR>")
 
 -- Telescope
-map("n", "<c-t>", ":NvimTreeToggle<CR>")
-map("n", "<c-f>", ":Telescope live_grep<CR>")
-map("n", "<c-g>", ":Telescope find_files<CR>")
+nmap("<c-t>", ":NvimTreeToggle<CR>")
+nmap("<c-f>", ":Telescope live_grep<CR>")
+nmap("<c-g>", ":Telescope find_files<CR>")
 
 -- IconPicker
-map("n", "<leader>i", ":IconPickerInsert<CR>")
+nmap("<leader>i", ":IconPickerInsert<CR>")
 
 local function setup_specific(util)
     local lang = util.get_lang()
@@ -47,23 +54,28 @@ local function setup_specific(util)
 
     -- project specific over language specific
     if lang == "cmake" and util.is_project("poseidon_core") then
-        map("n", ";gd", ":split term://cmake -DCMAKE_BUILD_TYPE=Debug -DUSE_PMDK=OFF -DUSE_PFILE=OFF -DUSE_LLVM=ON -DQOP_RECOVERY=OFF -D CMAKE_EXPORT_COMPILE_COMMANDS=ON -S . -B build/Debug<CR>")
-        map("n", ";bd", ":split term://cmake --build build/Debug -j8<CR>")
-        map("n", ";gr", ":split term://cmake -DCMAKE_BUILD_TYPE=Release -DUSE_PMDK=OFF -DUSE_PFILE=OFF -DUSE_LLVM=ON -DQOP_RECOVERY=OFF -D CMAKE_EXPORT_COMPILE_COMMANDS=ON -S . -B build/Debug<CR>")
-        map("n", ";br", ":split term://cmake --build build/Release -j8<CR>")
+        nmap(";gd", ":split term://cmake -DCMAKE_BUILD_TYPE=Debug -DUSE_PMDK=OFF -DUSE_PFILE=OFF -DUSE_LLVM=ON -DQOP_RECOVERY=OFF -D CMAKE_EXPORT_COMPILE_COMMANDS=ON -S . -B build/Debug<CR>")
+        nmap(";bd", ":split term://cmake --build build/Debug -j8<CR>")
+        nmap(";gr", ":split term://cmake -DCMAKE_BUILD_TYPE=Release -DUSE_PMDK=OFF -DUSE_PFILE=OFF -DUSE_LLVM=ON -DQOP_RECOVERY=OFF -D CMAKE_EXPORT_COMPILE_COMMANDS=ON -S . -B build/Debug<CR>")
+        nmap(";br", ":split term://cmake --build build/Release -j8<CR>")
 
 
     elseif lang == "make" then
-        map("n", ";b", ":split term://make build<CR>")
-        map("n", ";r", ":split term://make run<CR>")
+        nmap(";b", ":split term://make build<CR>")
+        nmap(";r", ":split term://make run<CR>")
 
     elseif lang == "rust" then
-        map("n", ";rd", ":split term://cargo run<CR>")
-        map("n", ";rr", ":split term://cargo run --release<CR>")
-        map("n", ";bd", ":split term://cargo build<CR>")
-        map("n", ";br", ":split term://cargo build --release<CR>")
-        map("n", ";t",  ":split term://cargo test<CR>")
-        map("n", ";c",  ":split term://cargo clean<CR>")
+        nmap(";rd", ":split term://cargo run<CR>")
+        nmap(";rr", ":split term://cargo run --release<CR>")
+        nmap(";bd", ":split term://cargo build<CR>")
+        nmap(";br", ":split term://cargo build --release<CR>")
+        nmap(";t",  ":split term://cargo test<CR>")
+        nmap(";c",  ":split term://cargo clean<CR>")
+
+    elseif lang == "latex" then
+        nmap(";b", ":VimtexCompile<CR>")
+        nmap(";c", ":VimtexClean<CR>")
+
     end
 end
 

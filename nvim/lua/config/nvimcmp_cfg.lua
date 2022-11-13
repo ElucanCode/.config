@@ -109,7 +109,7 @@ cmp.setup({
   },
   sources = {
     { name = "nvim_lsp", priority = 99 },
-    { name = "vsnip" },
+    { name = "vsnip", priority = 75 },
     { name = "buffer" },
     { name = "path" },
     { name = "dictionary", keyword_length = 2 },

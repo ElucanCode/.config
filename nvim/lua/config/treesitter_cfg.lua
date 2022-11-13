@@ -1,16 +1,10 @@
 require('nvim-treesitter.configs').setup {
-    ensure_installed = { "c", "cpp", "lua", "rust", "python" },
-
+    ensure_installed = { "c", "cpp", "lua", "latex", "rust" },
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
 
     highlight = {
-        -- `false` will disable the whole extension
-        enable = true,
-
+        enable = true, -- `false` will disable the whole extension
         additional_vim_regex_highlighting = false,
     },
-    matchup = {
-        enable = true,
-    }
 }

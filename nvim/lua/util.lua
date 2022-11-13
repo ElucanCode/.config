@@ -7,6 +7,8 @@ M.get_lang = function ()
         return "cmake"
     elseif vim.fn.filereadable("Makefile") == 1 then
         return "make"
+    elseif vim.fn.filereadable("main.tex") == 1 then
+        return "latex"
     else
         return nil
     end

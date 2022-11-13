@@ -1,7 +1,7 @@
 -- Auto compile when there are changes in plugins.lua
--- vim.cmd [[autocmd BufWritePost plugins.lua PackerCompile]]
+vim.cmd [[autocmd BufWritePost plugins.lua PackerCompile]]
 
-return require('packer').startup(function()
+return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
@@ -44,16 +44,15 @@ return require('packer').startup(function()
             require('lualine').setup({
                 options = {
                     section_separators = '',
-                component_separators = '',
-                theme = 'auto',
+                    component_separators = '',
                 },
                 extensions = {
-                'nvim-tree',
+                    'nvim-tree',
                }
             })
         end,
     }
-    
+
     -- Git decorations
     use {
         'lewis6991/gitsigns.nvim',
@@ -114,16 +113,21 @@ return require('packer').startup(function()
         requires = { 'stevearc/dressing.nvim' }
     }
 
+    -- tex support
+    use 'lervag/vimtex'
+
     -- LSP
+    -- download and manage lsp server
+    use {
+        'williamboman/nvim-lsp-installer',
+        config = function ()
+            require('nvim-lsp-installer').setup()
+        end,
+    }
     -- Configuration
     use {
         'neovim/nvim-lspconfig',
         config = "require('config.lspconfig_cfg')",
-    }
-    -- download and manage lsp server
-    use {
-        'williamboman/nvim-lsp-installer',
-        config = "require('lspconfig')",
     }
     -- progress indication for lsp server
     use {
@@ -135,7 +139,7 @@ return require('packer').startup(function()
     -- completion core
     use {
         'hrsh7th/nvim-cmp',
-        -- config = "require('config.nvimcmp_cfg')",
+        config = "require('config.nvimcmp_cfg')",
     }
     -- completion source for system path
     use {
@@ -152,17 +156,16 @@ return require('packer').startup(function()
         'hrsh7th/cmp-buffer',
         after = 'nvim-cmp',
     }
-    -- completion source for vsnip snippet plugin
-    use {
-        'hrsh7th/cmp-vsnip',
-        after = 'nvim-cmp',
-    }
     -- snippet core
     use {
         'hrsh7th/vim-vsnip',
         after = 'nvim-cmp',
     }
-
+    -- completion source for vsnip snippet plugin
+    use {
+        'hrsh7th/cmp-vsnip',
+        after = 'nvim-cmp',
+    }
     -- code outline
     use {
         'simrat39/symbols-outline.nvim',

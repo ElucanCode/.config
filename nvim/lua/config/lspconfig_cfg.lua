@@ -1,4 +1,4 @@
-local present1, _ = pcall(require, "lspconfig")
+local present1, config = pcall(require, "lspconfig")
 local present2, installer = pcall(require, "nvim-lsp-installer")
 if not (present1 or present2) then
   vim.notify("Fail to setup LSP", vim.log.levels.ERROR, {
@@ -7,17 +7,20 @@ if not (present1 or present2) then
   return
 end
 
-if installer.settings then
-  installer.settings({
-    ui = {
-      icons = {
-        server_installed = "✓",
-        server_pending = "➜",
-        server_uninstalled = "✗",
-      },
+installer.setup({
+    ensure_installed = {
+        "rust_analyzer",
+        "sumneko_lua",
+        "texlab",
     },
-  })
-end
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "…",
+            server_uninstalled = "✗"
+        }
+    }
+})
 
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 
@@ -72,13 +75,15 @@ local on_attach = function(client, bufnr)
   map('<leader>f', function() vim.lsp.buf.format { async = true } end)
 end
 
-require('lspconfig')['pyright'].setup{
+config.sumneko_lua.setup {
+    on_attach = on_attach
+}
+config.clangd.setup{
     on_attach = on_attach,
 }
-require('lspconfig')['rust_analyzer'].setup{
+config.texlab.setup{
     on_attach = on_attach,
-    -- Server-specific settings...
-    settings = {
-      ["rust-analyzer"] = {}
-    }
+}
+config.rust_analyzer.setup{
+    on_attach = on_attach,
 }

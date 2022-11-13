@@ -23,6 +23,8 @@ vim.opt.ignorecase = true       -- Ignore case for search / substitution
 vim.opt.smartcase = true        -- Deactivate ignorecase when the query has an uppercase charater
 vim.opt.gdefault = true         -- `g` does not need to be specified in substitutions
 
+vim.opt.spell = true            -- check spelling
+
 require('plugins')
 local util = require('util')
 require('keymaps')(util)
