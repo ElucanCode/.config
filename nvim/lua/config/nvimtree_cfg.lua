@@ -4,6 +4,16 @@ if not ok then
   return
 end
 
+-- automatically close neovim when nvim-tree is the last open buffer
+vim.api.nvim_create_autocmd("BufEnter", {
+  nested = true,
+  callback = function()
+    if #vim.api.nvim_list_wins() == 1 and require("nvim-tree.utils").is_nvim_tree_buf() then
+      vim.cmd "quit"
+    end
+  end
+})
+
 -- vim.g.nvim_tree_icons = {
 --   default = "",
 --   symlink = "→",
@@ -42,7 +52,7 @@ require('nvim-tree').setup {
   update_cwd = false,
   view = {
     width = 30,
-    hide_root_folder = false,
+    hide_root_folder = true,
     side = "left",
     preserve_window_proportions = false,
     number = false,
@@ -53,6 +63,18 @@ require('nvim-tree').setup {
       list = {
         -- user mappings go here
       },
+    },
+    float = {
+        enable = false,
+        quit_on_focus_loss = true,
+        open_win_config = {
+            relative = "editor",
+            border = "rounded",
+            width = 30,
+            height = 30,
+            row = 1,
+            col = 1,
+        },
     },
   },
   renderer = {

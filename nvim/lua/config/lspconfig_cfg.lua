@@ -23,7 +23,6 @@ installer.setup({
 })
 
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, {
@@ -40,13 +39,55 @@ local lsp_publish_diagnostics_options = {
   },
   signs = true,
   underline = true,
-  update_in_insert = true, -- update diagnostics insert mode
+  update_in_insert = false, -- update diagnostics insert mode
 }
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics,
   lsp_publish_diagnostics_options
 )
+
+local caps = vim.lsp.protocol.make_client_capabilities()
+caps.textDocument.completion.completionItem.snippetSupport = true
+caps.textDocument.completion.completionItem = {
+    documentationFormat = {
+        "markdown",
+        "plaintext",
+    },
+    snippetSupport = true,
+    preselectSupport = true,
+    insertReplaceSupport = true,
+    labelDetailsSupport = true,
+    deprecatedSupport = true,
+    commitCharactersSupport = true,
+    tagSupport = {
+      valueSet = { 1 },
+    },
+    resolveSupport = {
+      properties = {
+        "documentation",
+        "detail",
+        "additionalTextEdits",
+      },
+  },
+}
+
+local function nvim_lua_setting()
+    local runtime_path = vim.split(package.path, ";")
+    table.insert(runtime_path, "lua/?.lua")
+    table.insert(runtime_path, "lua/?/init.lua")
+    return {
+        Lua = {
+            version = "LuaJIT",
+            path = runtime_path,
+        },
+        diagnostics = { globals = { "vim" } },
+        workspace = {
+            library = vim.api.nvim_get_runtime_file("", true),
+        },
+        telemetry = { enable = false },
+    }
+end
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -75,15 +116,31 @@ local on_attach = function(client, bufnr)
   map('<leader>f', function() vim.lsp.buf.format { async = true } end)
 end
 
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "single",
+})
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  border = "single",
+})
+
 config.sumneko_lua.setup {
-    on_attach = on_attach
+    on_attach = on_attach,
+    capabilities = caps,
+    root_dir = vim.loop.cwd,
 }
 config.clangd.setup{
     on_attach = on_attach,
+    capabilities = caps,
+    root_dir = vim.loop.cwd,
 }
 config.texlab.setup{
     on_attach = on_attach,
+    capabilities = caps,
+    root_dir = vim.loop.cwd,
 }
 config.rust_analyzer.setup{
     on_attach = on_attach,
+    capabilities = caps,
+    root_dir = vim.loop.cwd,
 }

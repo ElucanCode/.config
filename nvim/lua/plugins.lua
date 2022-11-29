@@ -113,6 +113,17 @@ return require('packer').startup(function(use)
         requires = { 'stevearc/dressing.nvim' }
     }
 
+    -- display indentations
+    use {
+        'lukas-reineke/indent-blankline.nvim',
+        config = function()
+            require('indent_blankline').setup({
+                show_current_context = true,
+                -- show_current_context_start = true,
+            })
+        end,
+    }
+
     -- tex support
     use 'lervag/vimtex'
 
@@ -156,14 +167,14 @@ return require('packer').startup(function(use)
         'hrsh7th/cmp-buffer',
         after = 'nvim-cmp',
     }
-    -- snippet core
-    use {
-        'hrsh7th/vim-vsnip',
-        after = 'nvim-cmp',
-    }
     -- completion source for vsnip snippet plugin
     use {
         'hrsh7th/cmp-vsnip',
+        after = 'nvim-cmp',
+    }
+    -- snippet core
+    use {
+        'hrsh7th/vim-vsnip',
         after = 'nvim-cmp',
     }
     -- code outline

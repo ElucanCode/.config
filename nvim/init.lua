@@ -20,10 +20,11 @@ vim.opt.foldmethod = 'manual'   -- No automatic folding
 vim.opt.inccommand = 'split'    -- Live preview for substitution with `:s`
 vim.opt.incsearch = true        -- Highlighted case-insensitive incremental search
 vim.opt.ignorecase = true       -- Ignore case for search / substitution
-vim.opt.smartcase = true        -- Deactivate ignorecase when the query has an uppercase charater
+vim.opt.smartcase = true        -- Deactivate ignorecase when the query has an uppercase character
 vim.opt.gdefault = true         -- `g` does not need to be specified in substitutions
 
 vim.opt.spell = true            -- check spelling
+vim.opt.spelllang = "en_us,de_de"
 
 require('plugins')
 local util = require('util')

@@ -1,6 +1,9 @@
--- compied from https://github.com/Avimitin/nvim/blob/master/lua/plugins/config/nvimcmp_cfg.lua
+-- copied from https://github.com/Avimitin/nvim/blob/master/lua/plugins/config/nvimcmp_cfg.lua
 -- TODO make individual changes
 local cmp = require("cmp")
+if cmp == nil or cmp.setup == nil then
+    vim.notify("Unable to load plugin cmp", vim.log.levels.ERROR, { title = "cmp" })
+end
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -54,19 +57,26 @@ local source_menu = {
 cmp.setup({
   snippet = {
     expand = function(args)
-      -- For `vsnip` user.
       vim.fn["vsnip#anonymous"](args.body)
     end,
   },
+  window = {
+    documentation = cmp.config.window.bordered(),
+  },
   formatting = {
+    fields = { "kind", "abbr", "menu" },
     format = function(entry, item)
       -- return special icon for cmdline completion
       if entry.source.name == "cmdline" then
         item.kind = string.format("%s %s", kind_icons["VimCmdLine"], "Vim")
         return item
+      elseif entry.source.name == "nvim_lsp_signature_help" then
+          item.kind = "Property"
       end
-      item.kind = string.format("%s %s", kind_icons[item.kind], item.kind)
-      item.menu = (source_menu)[entry.source.name]
+      -- item.kind = string.format("%s %s", kind_icons[item.kind], item.kind)
+      -- item.menu = (source_menu)[entry.source.name]
+      item.menu = item.kind
+      item.kind = kind_icons[item.kind]
       return item
     end,
   },
@@ -109,15 +119,17 @@ cmp.setup({
   },
   sources = {
     { name = "nvim_lsp", priority = 99 },
-    { name = "vsnip", priority = 75 },
-    { name = "buffer" },
+    { name = "nvim_lsp_signature_help" },
+    { name = "vsnip" },
+    -- { name = "buffer" },
     { name = "path" },
-    { name = "dictionary", keyword_length = 2 },
+    -- { name = "dictionary", keyword_length = 2 },
   },
   experimental = {
     ghost_text = true,
   },
 })
+
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline("/", {
