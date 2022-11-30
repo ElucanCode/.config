@@ -1,4 +1,4 @@
-vim.g.mapleader = "ö"
+vim.g.mapleader = " "
 
 -- arguments:
 -- - mode = editor mode (i=insert, n=normal)
@@ -29,19 +29,22 @@ nmap("<c-j>", "<c-w>j")
 nmap("<c-h>", "<c-w>h")
 nmap("<c-k>", "<c-w>k")
 nmap("<c-l>", "<c-w>l")
+nmap("<Tab>", ":tabn<CR>")
+nmap("<s-Tab>", ":tabp<CR>")
+nmap("<c-n>", ":tabnew<CR>")
+nmap("<c-x>", ":tabc<CR>")
+
+-- open floating terminal
+nmap("<c-t>", ":Oterm<CR>")
 
 -- copy out of nvim
 vmap("<leader>Y", "\"+y")
 nmap("<leader>Y", "\"+yy")
 
--- unhighlight search results
-nmap("<leader><space>", ":noh<CR>")
-
 -- open code outline
 nmap("<leader>o", ":SymbolsOutline<CR>")
 
 -- Telescope
-nmap("<c-t>", ":NvimTreeToggle<CR>")
 nmap("<c-f>", ":Telescope live_grep<CR>")
 nmap("<c-g>", ":Telescope find_files<CR>")
 
@@ -54,27 +57,27 @@ local function setup_specific(util)
 
     -- project specific over language specific
     if lang == "cmake" and util.is_project("poseidon_core") then
-        nmap(";gd", ":split term://cmake -DCMAKE_BUILD_TYPE=Debug -DUSE_PMDK=OFF -DUSE_PFILE=OFF -DUSE_LLVM=ON -DQOP_RECOVERY=OFF -D CMAKE_EXPORT_COMPILE_COMMANDS=ON -S . -B build/Debug<CR>")
-        nmap(";bd", ":split term://cmake --build build/Debug -j8<CR>")
-        nmap(";gr", ":split term://cmake -DCMAKE_BUILD_TYPE=Release -DUSE_PMDK=OFF -DUSE_PFILE=OFF -DUSE_LLVM=ON -DQOP_RECOVERY=OFF -D CMAKE_EXPORT_COMPILE_COMMANDS=ON -S . -B build/Debug<CR>")
-        nmap(";br", ":split term://cmake --build build/Release -j8<CR>")
+        nmap("ögd", ":split term://cmake -DCMAKE_BUILD_TYPE=Debug -DUSE_PMDK=OFF -DUSE_PFILE=OFF -DUSE_LLVM=ON -DQOP_RECOVERY=OFF -D CMAKE_EXPORT_COMPILE_COMMANDS=ON -S . -B build/Debug<CR>")
+        nmap("öbd", ":split term://cmake --build build/Debug -j8<CR>")
+        nmap("ögr", ":split term://cmake -DCMAKE_BUILD_TYPE=Release -DUSE_PMDK=OFF -DUSE_PFILE=OFF -DUSE_LLVM=ON -DQOP_RECOVERY=OFF -D CMAKE_EXPORT_COMPILE_COMMANDS=ON -S . -B build/Debug<CR>")
+        nmap("öbr", ":split term://cmake --build build/Release -j8<CR>")
 
 
     elseif lang == "make" then
-        nmap(";b", ":split term://make build<CR>")
-        nmap(";r", ":split term://make run<CR>")
+        nmap("öb", ":split term://make build<CR>")
+        nmap("ör", ":split term://make run<CR>")
 
     elseif lang == "rust" then
-        nmap(";rd", ":split term://cargo run<CR>")
-        nmap(";rr", ":split term://cargo run --release<CR>")
-        nmap(";bd", ":split term://cargo build<CR>")
-        nmap(";br", ":split term://cargo build --release<CR>")
-        nmap(";t",  ":split term://cargo test<CR>")
-        nmap(";c",  ":split term://cargo clean<CR>")
+        nmap("örd", ":split term://cargo run<CR>")
+        nmap("örr", ":split term://cargo run --release<CR>")
+        nmap("öbd", ":split term://cargo build<CR>")
+        nmap("öbr", ":split term://cargo build --release<CR>")
+        nmap("öt",  ":split term://cargo test<CR>")
+        nmap("öc",  ":split term://cargo clean<CR>")
 
     elseif lang == "latex" then
-        nmap(";b", ":VimtexCompile<CR>")
-        nmap(";c", ":VimtexClean<CR>")
+        nmap("öb", ":VimtexCompile<CR>")
+        nmap("öc", ":VimtexClean<CR>")
 
     end
 end

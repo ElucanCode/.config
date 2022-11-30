@@ -53,6 +53,18 @@ return require('packer').startup(function(use)
         end,
     }
 
+    use {
+        'doums/oterm.nvim',
+        config = function ()
+            require('oterm').setup({
+                layout = "center",
+                keymaps = {
+                    exit = "<c-q>",
+                }
+            })
+        end
+    }
+
     -- Git decorations
     use {
         'lewis6991/gitsigns.nvim',
