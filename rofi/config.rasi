@@ -1,0 +1,27 @@
+configuration {
+    modi: "run,drun,window";
+    font: "SauceCodePro Nerd Font 10";
+    icon-theme: "Oranchelo";
+    line-margin: 10;
+    terminal: "alacritty";
+    drun-display-format: "{icon} {name}";
+    hide-scrollbar: false;
+
+    display-ssh:    "";
+    display-run:    "";
+    display-drun: "   Apps ";
+    display-window: "";
+    display-combi:  "";
+    display-Network: " 󰤨  Network";
+    show-icons:     true;
+}
+
+@theme "~/.config/rofi/current-theme"
+
+listview {
+    lines: 10;
+}
+
+window {
+    width: 40%;
+}
