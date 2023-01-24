@@ -55,13 +55,16 @@ local function setup_specific(util)
     local lang = util.get_lang()
     -- For language server specifics see config/lspconfig_cfg.lua
 
-    -- project specific over language specific
-    if lang == "cmake" and util.is_project("poseidon_core") then
-        nmap("ögd", ":split term://cmake -DCMAKE_BUILD_TYPE=Debug -DUSE_PMDK=OFF -DUSE_PFILE=OFF -DUSE_LLVM=ON -DQOP_RECOVERY=OFF -D CMAKE_EXPORT_COMPILE_COMMANDS=ON -S . -B build/Debug<CR>")
-        nmap("öbd", ":split term://cmake --build build/Debug -j8<CR>")
-        nmap("ögr", ":split term://cmake -DCMAKE_BUILD_TYPE=Release -DUSE_PMDK=OFF -DUSE_PFILE=OFF -DUSE_LLVM=ON -DQOP_RECOVERY=OFF -D CMAKE_EXPORT_COMPILE_COMMANDS=ON -S . -B build/Debug<CR>")
-        nmap("öbr", ":split term://cmake --build build/Release -j8<CR>")
-
+    if lang == "cmake" then
+        if util.is_project("poseidon_core") then
+            nmap("ögd", ":split term://cmake -DCMAKE_BUILD_TYPE=Debug -DUSE_PMDK=OFF -DUSE_PFILE=OFF -DUSE_LLVM=ON -DQOP_RECOVERY=OFF -D CMAKE_EXPORT_COMPILE_COMMANDS=ON -S . -B build/Debug<CR>")
+            nmap("ödb", ":split term://cmake --build build/Debug -j8<CR>")
+            nmap("ögr", ":split term://cmake -DCMAKE_BUILD_TYPE=Release -DUSE_PMDK=OFF -DUSE_PFILE=OFF -DUSE_LLVM=ON -DQOP_RECOVERY=OFF -D CMAKE_EXPORT_COMPILE_COMMANDS=ON -S . -B build/Debug<CR>")
+            nmap("örb", ":split term://cmake --build build/Release -j8<CR>")
+        else
+            nmap("ög", ":split term://cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -S . -B ./build<CR>")
+            nmap("öb", ":split term://cmake -B ./build && make -C ./build -j8<CR>")
+        end
 
     elseif lang == "make" then
         nmap("öb", ":split term://make build<CR>")
@@ -70,8 +73,8 @@ local function setup_specific(util)
     elseif lang == "rust" then
         nmap("örd", ":split term://cargo run<CR>")
         nmap("örr", ":split term://cargo run --release<CR>")
-        nmap("öbd", ":split term://cargo build<CR>")
-        nmap("öbr", ":split term://cargo build --release<CR>")
+        nmap("ödb", ":split term://cargo build<CR>")
+        nmap("örb", ":split term://cargo build --release<CR>")
         nmap("öt",  ":split term://cargo test<CR>")
         nmap("öc",  ":split term://cargo clean<CR>")
 
