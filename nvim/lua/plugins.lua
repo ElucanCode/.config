@@ -22,6 +22,9 @@ return require('packer').startup(function(use)
         run = ':TSUpdate',
         config = "require('config.treesitter_cfg')"
     }
+    -- Language support for yuck (Configuration language for eww)
+    use 'elkowar/yuck.vim'
+    use 'LhKipp/nvim-nu'
 
     -- Better finder
     use {
@@ -137,16 +140,17 @@ return require('packer').startup(function(use)
     }
 
     -- tex support
-    use 'lervag/vimtex'
+    use {
+        'lervag/vimtex',
+        config = function()
+            vim.g.vimtex_view_method = 'zathura'
+        end,
+    } 
 
     -- LSP
     -- download and manage lsp server
-    use {
-        'williamboman/nvim-lsp-installer',
-        config = function ()
-            require('nvim-lsp-installer').setup()
-        end,
-    }
+    use 'williamboman/mason.nvim'
+    use 'williamboman/mason-lspconfig.nvim'
     -- Configuration
     use {
         'neovim/nvim-lspconfig',

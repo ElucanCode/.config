@@ -1,5 +1,5 @@
 local present1, config = pcall(require, "lspconfig")
-local present2, installer = pcall(require, "nvim-lsp-installer")
+local present2, installer = pcall(require, "mason")
 if not (present1 or present2) then
   vim.notify("Fail to setup LSP", vim.log.levels.ERROR, {
     title = "plugins",
@@ -10,7 +10,7 @@ end
 installer.setup({
     ensure_installed = {
         "rust_analyzer",
-        "sumneko_lua",
+        "lua_ls",
         "texlab",
     },
     ui = {
@@ -124,12 +124,17 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
   border = "single",
 })
 
-config.sumneko_lua.setup {
+config.lua_ls.setup {
     on_attach = on_attach,
     capabilities = caps,
     root_dir = vim.loop.cwd,
 }
 config.clangd.setup{
+    on_attach = on_attach,
+    capabilities = caps,
+    root_dir = vim.loop.cwd,
+}
+config.cmake.setup{
     on_attach = on_attach,
     capabilities = caps,
     root_dir = vim.loop.cwd,

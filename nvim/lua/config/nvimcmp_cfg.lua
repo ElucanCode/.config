@@ -121,7 +121,7 @@ cmp.setup({
     { name = "nvim_lsp", priority = 99 },
     { name = "nvim_lsp_signature_help" },
     { name = "vsnip" },
-    -- { name = "buffer" },
+    { name = "buffer" },
     { name = "path" },
     -- { name = "dictionary", keyword_length = 2 },
   },
@@ -141,11 +141,11 @@ cmp.setup.cmdline("/", {
   },
 })
 
-cmp.setup.cmdline(":", {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = "path" },
-  }, {
-    { name = "cmdline" },
-  }),
-})
+-- cmp.setup.cmdline(":", {
+--   mapping = cmp.mapping.preset.cmdline(),
+--   sources = cmp.config.sources({
+--     { name = "path" },
+--   }, {
+--     { name = "cmdline" },
+--   }),
+-- })
