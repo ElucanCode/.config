@@ -16,8 +16,8 @@ def create_right_prompt [] {
     $time_segment
 }
 
-let-env PROMPT_COMMAND = { create_left_prompt }
-let-env PROMPT_COMMAND_RIGHT = { create_right_prompt }
+let-env PROMPT_COMMAND = {|| create_left_prompt }
+let-env PROMPT_COMMAND_RIGHT = {|| create_right_prompt }
 let-env PROMPT_INDICATOR = "❯ "
 let-env PROMPT_INDICATOR_VI_INSERT = "❯ "
 let-env PROMPT_INDICATOR_VI_NORMAL = ": "
