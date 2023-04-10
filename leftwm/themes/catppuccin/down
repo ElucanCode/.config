@@ -3,7 +3,7 @@
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
 # processes to kill
-to_kill=("picom" "polybar")
+to_kill=("picom" "polybar" "lxsession")
 
 for cmd in "${to_kill[@]}"; do
     if [ -x "$(command -v ${cmd})" ]; then
