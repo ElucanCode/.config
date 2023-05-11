@@ -1,0 +1,110 @@
+#! /bin/bash
+
+# extractor command for some archive types
+ex() {
+    # local file=$@
+    for file in $@; do
+        if [ -f $file ]; then
+            case $file in
+                *.tar.bz2)  tar xjf $file    ;;
+                *.tar.gz)   tar xzf $file    ;;
+                *.bz2)      bunzip2 $file    ;;
+                *.gz)       gunzip $file     ;;
+                *.tar)      tar xf $file     ;;
+                *.tbz2)     tar xjf $file    ;;
+                *.tgz)      tar xzf $file    ;;
+                *.zip)      unzip $file      ;;
+                *.Z)        uncompress $file ;;
+                *.tar.xz)   tar xf $file     ;;
+                *.tar.zst)  tar xf $file     ;;
+                *)          echo "'$file' cannot be extracted via ex()" ;;
+            esac
+        else
+            echo "No or invalid file: '$file'."
+        fi
+    done 
+}
+
+decrypt-device() {
+    if [[ "$1" = "--help" || "$1" = "-h" ]]; then
+        echo "Usage: decrypt-device <device> <name>"
+        echo "Args:"
+        echo "  <device>    The device name to decrypt and mount (e.g. 'sda')."
+        echo "  <name>      The name for the device and link. Note that the link is removed"
+        echo "              if it already exists."
+        return 0
+    fi
+
+    if [ $# -ne 2 ]; then 
+        echo "Error: Wrong number of arguments. Use '--help' for more information."
+        return 1
+    elif [ ! -b "/dev/$1" ]; then
+        echo "Error: Device '/dev/$1' does not exists."
+        return 1
+    fi
+
+    local device="$1"
+    local mountpoint="/run/media/$USER/$2"
+    local link_name="/home/$USER/$2"
+
+    if [ -d "$mountpoint" ]; then
+        echo "Error: Mount point '$mountpoint' already exists."
+        return 1
+    elif [ -L "$link_name" ]; then
+        echo "Warn: Link '$link_name' already exists. Removing it."
+        rm $link_name
+    fi
+
+    sudo cryptsetup open "/dev/$device" "$device"
+    sudo mount --mkdir "/dev/mapper/$device" "$mountpoint"
+    ln -s "$mountpoint" "$link_name"
+}
+
+encrypt-device() {
+    if [[ "$1" = "--help" || "$1" = "-h" ]]; then
+        echo "Usage: encrypt-device <device> <name>"
+        echo "Args:"
+        echo "  <device>    The device name to unmount and encrypt (e.g. 'sda')."
+        echo "  <name>      The name of the mountpoint and link."
+        return 0
+    fi
+
+    if [ $# -ne 2 ]; then 
+        echo "Error: Wrong number of arguments. Use '--help' for more information."
+        return 1
+    fi
+
+    local device="$1"
+    local mountpoint="/run/media/$USER/$2"
+    local link_name="/home/$USER/$2"
+
+    if [ ! -d "$mountpoint" ]; then
+        echo "Error: Mountpoint '$mountpoint' does not exist."
+        return 1
+    fi
+
+    sudo umount "$mountpoint"
+    sudo rm "$mountpoint"
+    if [ -L "$link_name" ]; then
+        rm "$link_name"
+    fi
+    sudo cryptsetup close "$device"
+}
+
+replace() {
+    echo "This function is untested."
+    if [ $# -ne 2]; then
+        echo "Invalid arguments, needed are 2"
+    else
+        for f in *${1}*; do mv "$f" "${f//${1}/${2}}"; done
+    fi
+}
+
+# command to trigger a block in dwmblocks
+trigger() {
+	if [ $1 -gt 0 ]; then
+		pkill -RTMIN+$1 dwmblocks
+	else
+		echo "No or invalid signal passed"
+	fi
+}

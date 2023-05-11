@@ -1,0 +1,27 @@
+# ~/.bashrc
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+HISTCONTROL=ignoreboth
+
+set -o vi
+#PS1="[\e[1;34m\u@\h\e[0m | \t]: \e[1;31m\w\e[0m\n\$ "
+PS1="\e[1;31m\w\e[0m \e[1;34m\$\e[0m "
+
+#export LS_COLORS='di=1;4;34:ln=1;36:ex=0;33:fi=0;37'
+
+# source file with exports
+if [ -f "$HOME/.config/shell/sh_exports" ]; then
+    source "$HOME/.config/shell/sh_exports"
+fi
+
+# source aliases
+if [ -f "$HOME/.config/shell/sh_aliases" ]; then
+    source "$HOME/.config/shell/sh_aliases"
+fi
+
+# source shell functions
+if [ -f "$HOME/.config/shell/sh_functions" ]; then
+    source "$HOME/.config/shell/sh_functions"
+fi

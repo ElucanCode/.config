@@ -1,0 +1,62 @@
+#! /bin/sh
+
+# shortcuts
+alias :q='exit'
+alias :q!='exit'
+alias :wq='exit'
+alias clone='alacritty --working-directory "$PWD" &'
+alias vi='nvim'
+alias vim='nvim'
+alias cd:='cd ..'
+alias cd::='cd ../..'
+alias cd:::='cd ../../..'
+alias cdconf='cd ~/.config'
+
+alias exa='exa --color=always --classify --git --icons'
+alias ls='exa --git-ignore'
+alias la='exa --all'
+alias ll='exa --long --header'
+alias lla='exa --all --long --header'
+alias tree='exa --tree --git-ignore'
+alias trea='exa --tree --all'
+alias cat='bat'
+alias grep='rg'
+
+alias shtdwn='shutdown -h now'
+alias sshtdwn='sudo shutdown -h now'
+alias sreboot='sudo reboot'
+alias suspend='systemctl suspend'
+alias ssuspend='sudo systemctl suspend'
+
+alias parusyu='paru -Syu'
+alias rmorphans='sudo pacman -Rns $(pacman -Qtdq)'
+alias listinstalled='pacman -Qe'
+alias clearcache='paru -Sc ; paccache -r'
+
+alias screen='scrot -d 5 -c'
+alias screen10='scrot -d 10 -c'
+alias screen15='scrot -d 15 -c'
+alias notimeout='xset -dpms && xset s off'
+
+alias hdmileftdp='xrandr --auto --output HDMI-1 --mode 1920x1080 --left-of DP-1'
+alias hdmirightdp='xrandr --auto --output 1920x1080 --right-of DP'
+alias hdmioff='xrandr --output HDMI-1 --off'
+alias dplefthdmi='xrandr --auto --output DP-1 --mode 1920x1080 --left-of HDMI-1'
+alias dprighthdmi='xrandr --auto --output DP-1 --mode 1920x1080 --right-of HDMI-1'
+alias rotdpright='xrandr --output DP-1 --rotate right'
+alias rotdpleft='xrandr --output DP-1 --rotate left'
+alias rotdpnorm='xrandr --output DP-1 --rotate normal'
+alias dpoff='xrandr --output DP-1 --off'
+
+alias searchssh='sudo nmap -p 22'
+alias searchopenssh='sudo nmap --open -p 22'
+
+# typos
+alias vi.='nvim .'
+alias vim.='nvim .'
+alias nvim.='nvim .'
+alias vi..='nvim ..'
+alias vim..='nvim ..'
+alias nvim..='nvim ..'
+alias cd..='cd ..'
+alias cd~='cd ~'
