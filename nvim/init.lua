@@ -4,7 +4,7 @@ vim.opt.expandtab = true        -- Use spaces instead of tabs
 
 vim.opt.number = true           -- Show line number
 vim.opt.relativenumber = true   -- Line numbers relative to the cursor line
---vim.opt.textwidth = 80          -- Maximum text width
+vim.opt.textwidth = 80          -- Maximum text width
 vim.opt.colorcolumn = '80,120'  -- Base width markers
 
 vim.opt.termguicolors = true    -- True color support
