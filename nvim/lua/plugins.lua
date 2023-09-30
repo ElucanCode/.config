@@ -22,9 +22,6 @@ return require('packer').startup(function(use)
         run = ':TSUpdate',
         config = "require('config.treesitter_cfg')"
     }
-    -- Language support for yuck (Configuration language for eww)
-    use 'elkowar/yuck.vim'
-    use 'LhKipp/nvim-nu'
 
     -- Better finder
     use {
@@ -56,18 +53,6 @@ return require('packer').startup(function(use)
         end,
     }
 
-    use {
-        'doums/oterm.nvim',
-        config = function ()
-            require('oterm').setup({
-                layout = "center",
-                keymaps = {
-                    exit = "<c-q>",
-                }
-            })
-        end
-    }
-
     -- Git decorations
     use {
         'lewis6991/gitsigns.nvim',
@@ -86,8 +71,10 @@ return require('packer').startup(function(use)
         'beauwilliams/focus.nvim',
         config = function ()
             require('focus').setup({
-                enable = true,
-                autoresize = true,
+            --     enable = true,
+            --     autoresize = {
+            --         enable = true,
+            --     },
                 treewidth = 30,
             })
         end,
@@ -132,7 +119,7 @@ return require('packer').startup(function(use)
     use {
         'lukas-reineke/indent-blankline.nvim',
         config = function()
-            require('indent_blankline').setup({
+            require('ibl').setup({
                 show_current_context = true,
                 -- show_current_context_start = true,
             })
@@ -145,7 +132,7 @@ return require('packer').startup(function(use)
         config = function()
             vim.g.vimtex_view_method = 'zathura'
         end,
-    } 
+    }
 
     -- LSP
     -- download and manage lsp server
@@ -159,6 +146,7 @@ return require('packer').startup(function(use)
     -- progress indication for lsp server
     use {
         'j-hui/fidget.nvim',
+        tag = 'legacy',
         config = function()
             require("fidget").setup()
         end,

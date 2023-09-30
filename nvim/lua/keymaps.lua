@@ -1,5 +1,7 @@
 vim.g.mapleader = " "
 
+-- See lua/config/lspconfig_cfg for LSP- and diagnostic keymaps.
+
 -- arguments:
 -- - mode = editor mode (i=insert, n=normal)
 -- - lhs  = key combination
@@ -34,8 +36,7 @@ nmap("<s-Tab>", ":tabp<CR>")
 nmap("<c-n>", ":tabnew<CR>")
 nmap("<c-x>", ":tabc<CR>")
 
--- open floating terminal
-nmap("<c-t>", ":Oterm<CR>")
+nmap("<c-t>", ":split term://zsh<CR>")
 
 -- copy out of nvim
 vmap("<leader>Y", "\"+y")
