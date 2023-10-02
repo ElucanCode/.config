@@ -91,20 +91,11 @@ encrypt-device() {
     sudo cryptsetup close "$device"
 }
 
-replace() {
-    echo "This function is untested."
-    if [ $# -ne 2]; then
-        echo "Invalid arguments, needed are 2"
+nvim-subdir() {
+    if [ -d "$1" ]; then 
+        basename --multiple $1/* | fzf | read name && cd "$1/$name" && nvim
     else
-        for f in *${1}*; do mv "$f" "${f//${1}/${2}}"; done
+        echo "'$1' is not a directory"
+        return 1
     fi
-}
-
-# command to trigger a block in dwmblocks
-trigger() {
-	if [ $1 -gt 0 ]; then
-		pkill -RTMIN+$1 dwmblocks
-	else
-		echo "No or invalid signal passed"
-	fi
 }
