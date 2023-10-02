@@ -28,4 +28,7 @@ vim.opt.spelllang = "en_us,de_de"
 
 require('plugins')
 local util = require('util')
-require('keymaps')(util)
+util.load_telescope_extensions()
+
+local keymaps = require('keymaps')
+keymaps.setup_specific(util)

@@ -128,6 +128,25 @@ config.lua_ls.setup {
     on_attach = on_attach,
     capabilities = caps,
     root_dir = vim.loop.cwd,
+    settings = {
+        Lua = {
+            runtime = {
+                version = 'LuaJIT',
+            },
+            diagnostics = {
+                globals = {
+                    'vim',
+                    'require'
+                },
+            },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+            telemetry = {
+                enable = false,
+            }
+        }
+    },
 }
 config.clangd.setup{
     on_attach = on_attach,

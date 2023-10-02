@@ -5,7 +5,7 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-    -- catppuchin colorscheme
+    -- catppuccin colorscheme
     use {
         "catppuccin/nvim",
         as = "catppuccin",
@@ -16,25 +16,40 @@ return require('packer').startup(function(use)
         end,
     }
 
+    use {
+        "folke/which-key.nvim",
+        config = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+            require("which-key").setup({})
+        end,
+    }
+
     -- Better language parser
     use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
-        config = "require('config.treesitter_cfg')"
+        config = "require('config.treesitter_cfg')",
     }
 
     -- Better finder
     use {
         'nvim-telescope/telescope.nvim',
-        requires = { 'nvim-lua/plenary.nvim' }
+        requires = { 'nvim-lua/plenary.nvim' },
+        config = "require('config.telescope_cfg')",
+    }
+
+    use {
+        "nvim-telescope/telescope-file-browser.nvim",
+        requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
     }
 
     -- File tree
-    use {
-        'kyazdani42/nvim-tree.lua',
-        requires = { 'kyazdani42/nvim-web-devicons', }, -- for file icons
-        config = "require('config.nvimtree_cfg')"
-    }
+    -- use {
+    --     'kyazdani42/nvim-tree.lua',
+    --     requires = { 'kyazdani42/nvim-web-devicons', }, -- for file icons
+    --     config = "require('config.nvimtree_cfg')"
+    -- }
 
     -- Statusbar
     use {
@@ -43,12 +58,18 @@ return require('packer').startup(function(use)
         config = function ()
             require('lualine').setup({
                 options = {
+                    theme = "catppuccin",
+                    icons_enables = true,
+                    component_separators = '|',
                     section_separators = '',
-                    component_separators = '',
                 },
-                extensions = {
-                    'nvim-tree',
-               }
+                sections = {
+                    lualine_a = {
+                        {
+                            'buffers',
+                        }
+                    }
+                }
             })
         end,
     }
@@ -83,25 +104,19 @@ return require('packer').startup(function(use)
     -- auto close braces, ...
     use {
         'windwp/nvim-autopairs',
-        config = function()
-            require('nvim-autopairs').setup{}
-        end,
+        config = "require('nvim-autopairs').setup({})",
     }
 
     -- shortcut for comments
     use {
         'numToStr/Comment.nvim',
-        config = function()
-            require('Comment').setup()
-        end,
+        config = "require('Comment').setup()",
     }
 
     -- preview colors
     use {
         'norcalli/nvim-colorizer.lua',
-        config = function()
-            require('colorizer').setup()
-        end,
+        config = "require('colorizer').setup()",
     }
 
     -- picker for icons
@@ -119,10 +134,7 @@ return require('packer').startup(function(use)
     use {
         'lukas-reineke/indent-blankline.nvim',
         config = function()
-            require('ibl').setup({
-                show_current_context = true,
-                -- show_current_context_start = true,
-            })
+            require('ibl').setup()
         end,
     }
 
@@ -147,9 +159,7 @@ return require('packer').startup(function(use)
     use {
         'j-hui/fidget.nvim',
         tag = 'legacy',
-        config = function()
-            require("fidget").setup()
-        end,
+        config = "require('fidget').setup()",
     }
     -- completion core
     use {
