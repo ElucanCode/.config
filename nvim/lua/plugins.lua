@@ -201,4 +201,9 @@ return require('packer').startup(function(use)
             })
         end,
     }
+
+    use {
+        'kaarmu/typst.vim',
+        ft = {'typst'}
+    }
 end)
