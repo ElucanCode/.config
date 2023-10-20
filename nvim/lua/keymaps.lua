@@ -37,36 +37,36 @@ M.nmap("<c-t>", ":split term://zsh<CR>")
 
 wk.register({
     ["<leader>"] = {
-        f = { "<cmd>Telescope live_grep<CR>", "find string" },
-        g = { "<cmd>Telescope find_files<CR>", "find file" },
-        t = { "<cmd>Telescope file_browser<CR>", "file browser" },
-        b = { "<cmd>Telescope buffers<CR>", "all buffers" },
-        s = { "<cmd>Telescope spell_suggest<CR>", "check spelling"},
+        f = { "<cmd>Telescope live_grep<CR>", "Find string" },
+        g = { "<cmd>Telescope find_files<CR>", "Find file" },
+        t = { "<cmd>Telescope file_browser<CR>", "File browser" },
+        b = { "<cmd>Telescope buffers<CR>", "All buffers" },
+        s = { "<cmd>Telescope spell_suggest<CR>", "Check spelling"},
     },
     ["<leader>w"] = {
         name = "create windows",
-        j = { "<cmd>split<CR>", "horizontal split" },
-        k = { "<cmd>split<CR>", "horizontal split" },
-        h = { "<cmd>vsplit<CR>", "vertical split" },
-        l = { "<cmd>vsplit<CR>", "vertical split" },
+        j = { "<cmd>split<CR>", "Horizontal split" },
+        k = { "<cmd>split<CR>", "Horizontal split" },
+        h = { "<cmd>vsplit<CR>", "Vertical split" },
+        l = { "<cmd>vsplit<CR>", "Vertical split" },
     },
     ["<leader>T"] = {
         name = "manage tabs",
-        N = { "<cmd>tabnew<CR>", "create new tab" },
-        n = { "<cmd>tabnext<CR>", "next tab (use TAB)" },
-        p = { "<cmd>tabprevious<CR>", "previous tab (use SHIFT+TAB)" },
-        c = { ":tabc<CR>", "close tab" },
+        N = { "<cmd>tabnew<CR>", "Create new tab" },
+        n = { "<cmd>tabnext<CR>", "Next tab (use TAB)" },
+        p = { "<cmd>tabprevious<CR>", "Previous tab (use SHIFT+TAB)" },
+        c = { ":tabc<CR>", "Close tab" },
     },
     ["<leader>d"] = {
         name = "diagnostics",
-        a = { "<cmd>lua vim.diagnostic.setloclist()", "display all diagnostics for current file" },
-        f = { "<cmd>lua vim.diagnostic.open_float()", "display floating diagnostics" },
-        n = { "<cmd>lua vim.diagnostic.goto_next()", "goto next diagnostic" },
-        p = { "<cmd>lua vim.diagnostic.goto_prev()", "goto previous diagnostic" },
+        a = { "<cmd>lua vim.diagnostic.setloclist()<CR>", "Display all diagnostics for current file" },
+        f = { "<cmd>lua vim.diagnostic.open_float()<CR>", "Display floating diagnostics" },
+        n = { "<cmd>lua vim.diagnostic.goto_next()<CR>", "Goto next diagnostic" },
+        p = { "<cmd>lua vim.diagnostic.goto_prev()<CR>", "Goto previous diagnostic" },
     },
     ["<leader>m"] = {
         name = "miscellaneous",
-        i = { "<cmd>IconPickerInsert<CR>", "display icon picker" },
+        i = { "<cmd>IconPickerInsert<CR>", "Display icon picker" },
     },
     ["<leader>Y"] = { "\"+yy", "Copy out of nvim" }
 })
@@ -81,7 +81,7 @@ M.setup_specific = function(util)
         wk.register({
             ["ö"] = {
                 name = "project",
-                g = { "<cmd>split term://cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -S . -B ./build<CR>", },
+                g = { "<cmd>split term://cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -S . -B ./build<CR>", "Export compile commands" },
                 b = { "<cmd>split term://cmake -B ./build && make -C ./build -j8<CR>", "Build project"
                 }
             }
@@ -98,20 +98,20 @@ M.setup_specific = function(util)
         wk.register({
             ["ö"] = {
                 name = "project",
-                b = { "<cmd>split term://cargo build<CR>", "debug build" },
-                br = { "<cmd>split term://cargo build --release<CR>", "release build" },
-                r = { "<cmd>split term://cargo run<CR>", "debug run" },
-                rr = { "<cmd>split term://cargo run --release<CR>", "release run" },
-                t = { "<cmd>split term://cargo test<CR>", "run tests" },
-                c = { "<cmd>split term://cargo clean<CR>", "clean build dir" }
+                b = { "<cmd>split term://cargo build<CR>", "Debug build" },
+                br = { "<cmd>split term://cargo build --release<CR>", "Release build" },
+                r = { "<cmd>split term://cargo run<CR>", "Debug run" },
+                rr = { "<cmd>split term://cargo run --release<CR>", "Release run" },
+                t = { "<cmd>split term://cargo test<CR>", "Run tests" },
+                c = { "<cmd>split term://cargo clean<CR>", "Clean build dir" }
             }
         })
     elseif lang == "latex" then
         wk.register({
             ["ö"] = {
                 name = "project",
-                b = { "<cmd>VimtexCompile<CR>", "compile document" },
-                c = { "<cmd>VimtexClean<CR>", "clean auxiliary files" }
+                b = { "<cmd>VimtexCompile<CR>", "Compile document" },
+                c = { "<cmd>VimtexClean<CR>", "Clean auxiliary files" }
             }
         })
     end
