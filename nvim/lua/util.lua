@@ -4,7 +4,7 @@ M.cur_file = function()
     return vim.fn.expand('%:t')
 end
 
-M.get_proj_lang = function()
+M.get_proj_type = function()
     if vim.fn.filereadable("Cargo.toml") == 1 then
         return "rust"
     elseif vim.fn.filereadable("CMakeLists.txt") == 1 then
@@ -13,6 +13,8 @@ M.get_proj_lang = function()
         return "make"
     elseif vim.fn.filereadable("main.tex") == 1 then
         return "latex"
+    elseif vim.fn.filereadable("build") == 1 then
+        return "buildscript"
     else
         return nil
     end

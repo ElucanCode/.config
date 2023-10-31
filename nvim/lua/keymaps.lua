@@ -74,30 +74,33 @@ wk.register({
 wk.register({ ["<leader>Y"] = { "\"+y", "Copy out of nvim" } }, { mode = "v" })
 
 M.setup_specific = function(util)
-    local lang = util.get_proj_lang()
+    local lang = util.get_proj_type()
     -- For language server specifics see config/lspconfig_cfg.lua
 
     if lang == "cmake" then
         wk.register({
             ["ö"] = {
-                name = "project",
+                name = "Project",
                 g = { "<cmd>split term://cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -S . -B ./build<CR>", "Export compile commands" },
                 b = { "<cmd>split term://cmake -B ./build && make -C ./build -j8<CR>", "Build project"
                 }
             }
         })
+        vim.g.c_syntax_for_h = 1
     elseif lang == "make" then
         wk.register({
             ["ö"] = {
-                name = "project",
+                name = "Project",
+                m = { "<cmd>split term://make<CR>", "Run make" },
                 b = { "<cmd>split term://make build<CR>", "Build project", },
                 r = { "<cmd>split term://make run<CR>", "Run project", }
             }
         })
+        vim.g.c_syntax_for_h = 1
     elseif lang == "rust" then
         wk.register({
             ["ö"] = {
-                name = "project",
+                name = "Project",
                 b = { "<cmd>split term://cargo build<CR>", "Debug build" },
                 br = { "<cmd>split term://cargo build --release<CR>", "Release build" },
                 r = { "<cmd>split term://cargo run<CR>", "Debug run" },
@@ -109,9 +112,16 @@ M.setup_specific = function(util)
     elseif lang == "latex" then
         wk.register({
             ["ö"] = {
-                name = "project",
+                name = "Project",
                 b = { "<cmd>VimtexCompile<CR>", "Compile document" },
                 c = { "<cmd>VimtexClean<CR>", "Clean auxiliary files" }
+            }
+        })
+    elseif lang == "buildscript" then
+        wk.register({
+            ["ö"] = {
+                name = "Project",
+                b = { "<cmd>split term://./build<CR>", "Run build script" },
             }
         })
     end
